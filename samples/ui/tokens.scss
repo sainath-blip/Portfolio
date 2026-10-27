@@ -1,0 +1,13 @@
+// Reference Sass module. The hosted sample uses the matching values in style.css.
+$colors: (ink: #16382e, action: #195b42, accent: #d8ef8c, canvas: #f7f8f2, error: #a12020);
+$space: (1: .25rem, 2: .5rem, 3: .75rem, 4: 1rem, 6: 1.5rem, 8: 2rem);
+@mixin focus-ring { outline: 3px solid #955500; outline-offset: 4px; }
+:root { @each $name, $value in $colors { --#{$name}: #{$value}; } }
+.sample-control {
+  min-height: 44px;
+  border: 1px solid var(--ink);
+  border-radius: 3px;
+  padding: .75rem 1rem;
+  &:focus-visible { @include focus-ring; }
+  &[aria-invalid='true'] { border-color: var(--error); }
+}

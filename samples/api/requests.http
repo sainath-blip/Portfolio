@@ -1,0 +1,12 @@
+@baseUrl = http://localhost:5080
+### Valid demo input: 200, persisted false
+POST {{baseUrl}}/api/demo/requests/validate
+Content-Type: application/json
+
+{"fullName":"Alex Morgan","email":"alex@example.com","program":"housing"}
+
+### Invalid input: 400 with fullName, email, and program errors
+POST {{baseUrl}}/api/demo/requests/validate
+Content-Type: application/json
+
+{"fullName":"","email":"invalid","program":"other"}

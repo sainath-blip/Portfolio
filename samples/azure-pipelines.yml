@@ -1,0 +1,22 @@
+# Illustrative build validation. Configure in Azure DevOps before use.
+# Run from the extracted portfolio root. No deployment or secrets included.
+trigger:
+  - main
+pool:
+  vmImage: ubuntu-latest
+steps:
+  - task: UseDotNet@2
+    inputs:
+      packageType: sdk
+      version: 8.0.x
+  - script: dotnet restore samples/api/Portfolio.Api.csproj
+    displayName: Restore API
+  - script: dotnet build samples/api/Portfolio.Api.csproj --configuration Release --no-restore
+    displayName: Build API
+  - script: node --check samples/ui/app.js
+    displayName: Check JavaScript syntax
+  - task: PublishPipelineArtifact@1
+    inputs:
+      targetPath: .
+      artifact: portfolio-source
+    displayName: Publish source for review
